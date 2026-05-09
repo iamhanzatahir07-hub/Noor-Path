@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -211,6 +211,149 @@
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         el.classList.add('active');
     }
-</script>
+
+    // --- 1. SPECIAL NIGHT ATTENDANCE SYSTEM (9 PM - 12 AM) ---
+function checkQuizAccess() {
+    const now = new Date();
+    const hour = now.getHours();
+    const quizSection = document.getElementById('night-quiz-box');
+    const timerText = document.getElementById('quiz-timer-msg');
+
+    if (hour >= 21 && hour < 24) {
+        // Unlock Quiz
+        quizSection.innerHTML = `
+            <h3 style="color:var(--p-green);">Daily Spiritual Report</h3>
+            <p style="font-size:12px; opacity:0.7;">Fill your daily progress, Akhi.</p>
+            <div id="quiz-content">
+                <p id="q-text">1. Did you pray all 5 times today?</p>
+                <div style="display:flex; gap:10px;">
+                    <button class="login-btn" style="padding:10px;" onclick="nextQuestion(1)">Yes, Alhamdulillah</button>
+                    <button class="login-btn" style="padding:10px; background:rgba(255,255,255,0.1); color:white;" onclick="nextQuestion(0)">No</button>
+                </div>
+            </div>
+        `;
+    } else {
+        // Locked State
+        quizSection.innerHTML = `
+            <div style="text-align:center; padding:20px;">
+                <i class="fa-solid fa-lock" style="font-size:40px; color:var(--p-gold); opacity:0.5;"></i>
+                <h4 style="margin-top:15px;">Daily Quiz Locked</h4>
+                <p style="font-size:11px; opacity:0.6;">Unlocks tonight at 09:00 PM</p>
+                <div id="quiz-countdown" style="font-weight:800; color:var(--p-green);"></div>
+            </div>
+        `;
+    }
+}
+
+// --- 2. NOOR AI ADVANCED LOGIC ---
+function askAI() {
+    const input = document.getElementById('ai-in');
+    const chatBox = document.getElementById('chat-window');
+    const val = input.value.trim();
+    if (!val) return;
+
+    // User Message
+    chatBox.innerHTML += `<div class="msg user-msg">${val}</div>`;
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Typing Animation Effect
+    const typingId = "typing-" + Date.now();
+    chatBox.innerHTML += `<div class="msg ai-msg" id="${typingId}">Noor AI is thinking...</div>`;
+    
+    setTimeout(() => {
+        let reply = "";
+        const q = val.toLowerCase();
+
+        if(q.includes("salam")) reply = "Walaikum Assalam! Main Noor Path AI hoon, aapka spiritual companion. Aap koi bhi Islamic sawal pooch sakte hain.";
+        else if(q.includes("namaz") || q.includes("prayer")) reply = "Namaz Momin ki meraj hai. Kya aapne apni pichli Namaz waqt par ada ki? Allah humein hidayat de.";
+        else if(q.includes("hamza")) reply = "Admin Hamza Tahir mere creator hain. Unhon ne mujhe aapki spiritual tarbiyat ke liye banaya hai.";
+        else if(q.includes("quran")) reply = "Quran Pak ki tilawat dil ko sukoon deti hai. Aaj aapne kaunsi Surah parhi?";
+        else if(q.includes("dua")) reply = "Behtareen dua: 'Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan'.";
+        else reply = "SubhanAllah! Ye boht gehri baat hai. Mazeed Islamic maloomat ke liye mujhse poochein.";
+
+        document.getElementById(typingId).innerText = reply;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 1200);
+}
+
+// --- 3. PRO-LEVEL TASBEEH & ZAKAT ---
+let tasbeehCount = localStorage.getItem('tCount') || 0;
+document.getElementById('t-count').innerText = tasbeehCount;
+
+function tapTasbeeh() {
+    tasbeehCount++;
+    document.getElementById('t-count').innerText = tasbeehCount;
+    localStorage.setItem('tCount', tasbeehCount);
+    if(navigator.vibrate) navigator.vibrate(60); // Real Feel
+}
+
+function resetTasbeeh() {
+    if(confirm("Reset counter?")) {
+        tasbeehCount = 0;
+        document.getElementById('t-count').innerText = 0;
+        localStorage.setItem('tCount', 0);
+    }
+}
+
+function calcZakat() {
+    const amount = document.getElementById('z-val').value;
+    if(amount > 0) {
+        const zakat = (amount * 0.025).toFixed(2);
+        document.getElementById('z-res').innerHTML = `
+            <div style="border-top:1px dashed var(--p-border); margin-top:10px; padding-top:10px;">
+                <small>Amount to Pay:</small><br>
+                <span style="font-size:20px; color:var(--p-green);">PKR ${zakat}</span>
+            </div>
+        `;
+    }
+}
+
+// --- 4. NAVIGATION SYSTEM ---
+function nav(pageId, element) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('p-' + pageId).classList.add('active');
+    
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    element.classList.add('active');
+    
+    // Auto-check quiz if navigating to profile/quiz
+    if(pageId === 'profile') checkQuizAccess();
+}
+
+// --- 5. INITIALIZE EVERYTHING ---
+auth.onAuthStateChanged(user => {
+    if (user) {
+        document.getElementById('auth-page').style.display = 'none';
+        document.getElementById('main-app').style.display = 'flex';
+        document.getElementById('u-name').innerText = user.displayName;
+        
+        // Load Profile Image
+        if(user.photoURL) {
+            const header = document.querySelector('.header');
+            const img = document.createElement('img');
+            img.src = user.photoURL;
+            img.style = "width:40px; height:40px; border-radius:50%; border:2px solid var(--p-green); position:absolute; right:20px; top:50px;";
+            header.appendChild(img);
+        }
+        
+        startLiveServices();
+    }
+});
+
+function startLiveServices() {
+    checkQuizAccess();
+    setInterval(checkQuizAccess, 60000); // Check every minute
+    
+    // Live Clock & Hijri
+    setInterval(() => {
+        const now = new Date();
+        document.getElementById('live-time').innerText = now.toLocaleTimeString();
+    }, 1000);
+    }
+    
+    </script>
 </body>
 </html>
+
+
