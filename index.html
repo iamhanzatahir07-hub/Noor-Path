@@ -562,6 +562,176 @@ class QiblaScreen extends StatelessWidget {
     );
   }
  }
+
+
+ class UserProfile {
+  String name;
+  String city;
+  int namazCount; // 0 to 5
+  double quranProgress; // 0.0 to 1.0
+  int loginStreak;
+  String currentLevel; // e.g., "Mumin"
+
+  UserProfile({
+    required this.name,
+    required this.city,
+    this.namazCount = 0,
+    this.quranProgress = 0.0,
+    this.loginStreak = 1,
+    this.currentLevel = "Beginner",
+  });
+             }
+ import 'package:flutter/material.dart';
+
+class ProfileTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFF8F9FA), // Clean White/Grey background
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildHeader(),         // 1. User Identity
+            _buildSpiritualStats(), // 2 & 3. Progress & Dashboard
+            _buildBadges(),         // 4. Rewards
+            _buildSettingsList(),   // 5, 7, 11. Settings & Preferences
+            _buildSavedContent(),   // 8. Bookmarks
+            _buildLogoutButton(),   // 6. Account & Sync
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- 1. USER IDENTITY SECTION ---
+  Widget _buildHeader() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.green[700], // Islamic Theme Color
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 40),
+          CircleAvatar(radius: 50, backgroundImage: AssetImage('assets/user.png')),
+          SizedBox(height: 10),
+          Text("Assalamualaikum, Hamza", 
+            style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+          Text("Karachi, Pakistan", style: TextStyle(color: Colors.white70)),
+        ],
+      ),
+    );
+  }
+
+  // --- 2 & 3. SPIRITUAL PROGRESS & DASHBOARD ---
+  Widget _buildSpiritualStats() {
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              _statRow(Icons.mosque, "Namaz Today", "5/5"),
+              Divider(),
+              _statRow(Icons.menu_book, "Quran Progress", "45%"),
+              Divider(),
+              _statRow(Icons.local_fire_department, "Login Streak", "7 Days"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _statRow(IconData icon, String title, String value) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.green),
+      title: Text(title),
+      trailing: Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+    );
+  }
+
+  // --- 4. REWARDS & ACHIEVEMENTS ---
+  Widget _buildBadges() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Text("Badges & Levels", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ),
+        Container(
+          height: 100,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              _badgeIcon("🏆", "7 Day Streak"),
+              _badgeIcon("📖", "Quran Reader"),
+              _badgeIcon("📿", "Zikr Master"),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _badgeIcon(String emoji, String label) {
+    return Container(
+      width: 100,
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text(emoji, fontSize: 30), Text(label, style: TextStyle(fontSize: 12))],
+      ),
+    );
+  }
+
+  // --- 5, 7, 11. SETTINGS & PREFERENCES ---
+  Widget _buildSettingsList() {
+    return Column(
+      children: [
+        _settingTile(Icons.notifications, "Prayer Notifications"),
+        _settingTile(Icons.language, "Language (Urdu/English)"),
+        _settingTile(Icons.calculate, "Madhab Calculation"),
+        _settingTile(Icons.dark_mode, "Appearance (Dark/Light)"),
+      ],
+    );
+  }
+
+  Widget _settingTile(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.grey[700]),
+      title: Text(title),
+      trailing: Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: () {},
+    );
+  }
+
+  // --- 8. SAVED CONTENT ---
+  Widget _buildSavedContent() {
+    return ListTile(
+      leading: Icon(Icons.bookmark, color: Colors.amber),
+      title: Text("Saved Ayats & Duas"),
+      onTap: () {},
+    );
+  }
+
+  // --- LOGOUT / SYNC ---
+  Widget _buildLogoutButton() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: TextButton(
+        onPressed: () {},
+        child: Text("Logout", style: TextStyle(color: Colors.red)),
+      ),
+    );
+  }
+                            }
  </script>
 </body>
 </html>
