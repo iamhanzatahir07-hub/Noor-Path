@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World!</h1>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html>const firebaseConfig = {
+  apiKey: "AIzaSyCu7t0Dx0xiX-WIiTzm8IM-V8uD5C1_1_Y", // Yeh aapki sahi key hai
+  authDomain: "noor-path-226ce.firebaseapp.com",
+  projectId: "noor-path-226ce",
+  storageBucket: "noor-path-226ce.appspot.com",
+  messagingSenderId: "616816872871",
+  appId: "1:616816872871:web:12e3a6fae3c230e1203a82",
+  measurementId: "G-NYY9XZRRL5"
+};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noor AI | Admin HAMZA</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #004d3d; --gold: #d4af37; --bg: #050a0e; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        #login-screen { position: fixed; inset: 0; background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
+        .login-btn { background: white; color: #333; padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .header { background: var(--primary); padding: 25px 20px; border-bottom: 2px solid var(--gold); text-align: left; border-radius: 0 0 30px 30px; }
+        .admin-tag { color: var(--gold); font-size: 10px; font-weight: bold; letter-spacing: 1px; }
+        .nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: rgba(0, 77, 61, 0.9); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 15px; border-radius: 20px; border: 1px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <i class="fa-solid fa-kaaba" style="font-size: 70px; color: var(--gold); margin-bottom: 20px;"></i>
+        <h1 style="letter-spacing: 3px;">NOOR AI</h1>
+        <button class="login-btn" onclick="signIn()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+            Sign in with Google
+        </button>
+    </div>
+
+    <div id="app" style="display:none;">
+        <div class="header">
+            <p class="admin-tag">SUPREME ADMIN: HAMZA</p>
+            <h2 style="margin-top: 5px;">Assalam-o-Alaikum, <span id="u-name" style="color:var(--gold)">User</span></h2>
+        </div>
+        <div style="padding: 60px 20px;">
+            <h1 id="clock" style="font-size: 50px;">00:00:00</h1>
+            <p id="date" style="color: var(--gold);"></p>
+        </div>
+        <nav class="nav">
+            <i class="fa-solid fa-mosque" style="color: var(--gold); font-size: 24px;"></i>
+            <i class="fa-solid fa-book-quran" style="color: rgba(255,255,255,0.5); font-size: 24px;"></i>
+            <i class="fa-solid fa-compass" style="color: rgba(255,255,255,0.5); font-size: 24px;"></i>
+            <i class="fa-solid fa-circle-user" style="color: rgba(255,255,255,0.5); font-size: 24px;" onclick="auth.signOut().then(()=>location.reload())"></i>
+        </nav>
+    </div>
+
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCu7t0Dx0xiX-WIiTzm8IM-V8uD5C1_1_Y",
+      authDomain: "noor-path-226ce.firebaseapp.com",
+      projectId: "noor-path-226ce",
+      storageBucket: "noor-path-226ce.appspot.com",
+      messagingSenderId: "616816872871",
+      appId: "1:616816872871:web:12e3a6fae3c230e1203a82"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function signIn() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).catch(e => alert("Error: " + e.message));
+    }
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            document.getElementById('u-name').innerText = user.displayName.split(' ')[0];
+        }
+    });
+
+    setInterval(() => {
+        const d = new Date();
+        document.getElementById('clock').innerText = d.toLocaleTimeString();
+        document.getElementById('date').innerText = d.toDateString();
+    }, 1000);
+</script>
+</body>
+</html>
