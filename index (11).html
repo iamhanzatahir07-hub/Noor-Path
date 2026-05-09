@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hello, World!</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-      <h1 class="title">Hello World!</h1>
-      <p id="currentTime"></p>
-      <script src="script.js"></script>
-  </body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +28,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden;
         }
 
-        /* --- 1. Splash Screen --- */
+        /* Splash Screen */
         #splash-screen {
             position: fixed; inset: 0; background: var(--p-dark);
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000;
@@ -52,7 +41,7 @@
         .splash-logo i { transform: rotate(-45deg); font-size: 50px; color: black; }
         @keyframes float { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(-20px); } }
 
-        /* --- 2. Auth Screen --- */
+        /* Auth Screen */
         #auth-screen {
             position: fixed; inset: 0; background: radial-gradient(circle at top, #003a2f, #01080b);
             display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 9000; padding: 25px;
@@ -66,7 +55,7 @@
             border-radius: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 30px; cursor: pointer;
         }
 
-        /* --- 3. Dashboard Core --- */
+        /* Dashboard */
         #main-app { display: none; height: 100vh; width: 100vw; flex-direction: column; }
         .app-header { padding: 60px 25px 20px; background: linear-gradient(to bottom, rgba(0, 77, 61, 0.3), transparent); }
         .admin-badge {
@@ -94,10 +83,7 @@
 
         .glass-card { background: var(--p-glass); border: 1px solid var(--p-border); border-radius: 35px; padding: 25px; margin-bottom: 20px; backdrop-filter: blur(15px); }
 
-        /* Quran Reader */
         #quran-reader { position: fixed; inset: 0; background: var(--p-dark); z-index: 10000; display: none; flex-direction: column; }
-        
-        /* Chat UI */
         #chat-box { height: 350px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; }
     </style>
 </head>
@@ -157,7 +143,7 @@
                 <h2 style="text-align: center;">Noor <span style="color: var(--p-gold);">AI</span></h2>
                 <div id="chat-box" class="glass-card"></div>
                 <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <input type="text" id="ai-input" placeholder="Ask anything about Islam..." style="flex:1; background: var(--p-glass); border: 1px solid var(--p-border); border-radius: 15px; padding: 15px; color: white;">
+                    <input type="text" id="ai-input" placeholder="Ask anything..." style="flex:1; background: var(--p-glass); border: 1px solid var(--p-border); border-radius: 15px; padding: 15px; color: white;">
                     <button onclick="askAI()" style="background: var(--grad); border: none; padding: 0 20px; border-radius: 15px;"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
@@ -173,22 +159,13 @@
                         <i class="fa-solid fa-fingerprint" style="font-size: 30px; color: var(--p-gold);"></i>
                     </div>
                 </div>
-                <div class="glass-card">
-                    <h3>Namaz Tracker</h3>
-                    <div id="namaz-tracker" style="margin-top: 15px;"></div>
-                </div>
             </div>
 
             <div id="p-profile" class="page">
                 <div style="text-align: center;">
-                    <div id="user-img" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--p-gold); margin: 0 auto; background-size: cover;"></div>
+                    <div id="user-img" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--p-gold); margin: 0 auto; background-size: cover; background-position: center;"></div>
                     <h2 id="user-name-full" style="margin: 15px 0 5px;">User Name</h2>
                     <p id="user-email" style="opacity: 0.5; margin: 0;">email@gmail.com</p>
-                    
-                    <div style="margin-top: 40px; padding: 25px; border: 1px dashed var(--p-border); border-radius: 30px; background: rgba(212,175,55,0.03);">
-                        <small style="letter-spacing: 3px; opacity: 0.5;">APPLICATION OWNER</small>
-                        <h3 style="color: var(--p-gold); margin: 5px 0; letter-spacing: 1px;">HAMZA TAHIR</h3>
-                    </div>
                     <button onclick="logout()" style="margin-top: 30px; background: none; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 10px 25px; border-radius: 15px;">Logout</button>
                 </div>
             </div>
@@ -207,34 +184,47 @@
         <div style="padding: 50px 25px 20px; background: var(--p-glass); display: flex; justify-content: space-between; align-items: center;">
             <i class="fa-solid fa-chevron-left" onclick="closeQuran()" style="font-size: 24px;"></i>
             <h3 id="surah-title" style="margin: 0; font-family: 'Amiri';">Surah</h3>
-            <i class="fa-solid fa-play" style="color: var(--p-gold);"></i>
+            <i></i>
         </div>
         <div id="reader-body" style="flex:1; overflow-y: auto; padding: 25px; text-align: right;"></div>
     </div>
 
     <div id="modal-tasbeeh" style="position: fixed; inset: 0; background: var(--p-dark); z-index: 11000; display: none; flex-direction: column; align-items: center; justify-content: center;">
         <h1 id="t-count" style="font-size: 120px; margin: 0; color: var(--p-gold);">0</h1>
-        <div onclick="countUp()" style="width: 220px; height: 220px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; color: black; font-weight: 900; font-size: 24px; box-shadow: 0 0 50px rgba(212,175,55,0.4); cursor: pointer;">TAP</div>
+        <div onclick="countUp()" style="width: 200px; height: 200px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; color: black; font-weight: 900; font-size: 24px; box-shadow: 0 0 50px rgba(212,175,55,0.4); cursor: pointer;">TAP</div>
         <button onclick="resetTasbeeh()" style="margin-top: 30px; background: none; border: 1px solid var(--p-border); color: white; padding: 10px 30px; border-radius: 10px;">Reset</button>
         <button onclick="document.getElementById('modal-tasbeeh').style.display='none'" style="margin-top: 20px; color: gray; border: none; background: none;">Close</button>
     </div>
 
 <script>
+    // --- Updated Firebase Config with your New API Key ---
     const firebaseConfig = {
-        apiKey: "AIzaSyCu7t0Dx0xiX-WIiTzm8IM-V8uD5C1_1_Y",
+        apiKey: "AIzaSyCu7t0Dx0xiX-WiITzmsIM-TlKXC32X8BQ",
         authDomain: "noor-path-226ce.firebaseapp.com",
         projectId: "noor-path-226ce",
-        storageBucket: "noor-path-226ce.appspot.com",
+        storageBucket: "noor-path-226ce.firebasestorage.app",
         messagingSenderId: "616816872871",
-        appId: "1:616816872871:web:12e3a6fae3c230e1203a82"
+        appId: "1:616816872871:web:12e3a6fae3e230e1203a82",
+        measurementId: "G-NYY9XZRRL5"
     };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // --- Core Logic ---
-    window.onload = () => { setTimeout(() => { gsap.to("#splash-screen", { opacity: 0, duration: 1, onComplete: () => document.getElementById('splash-screen').style.display='none' }); }, 2500); };
+    // Splash Screen Logic
+    window.onload = () => { 
+        setTimeout(() => { 
+            gsap.to("#splash-screen", { opacity: 0, duration: 1, onComplete: () => {
+                document.getElementById('splash-screen').style.display='none';
+            }}); 
+        }, 2500); 
+    };
 
-    function login() { auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+    // Auth Logic
+    function login() { 
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).catch(err => alert(err.message)); 
+    }
     function logout() { auth.signOut().then(() => location.reload()); }
 
     auth.onAuthStateChanged(user => {
@@ -244,14 +234,14 @@
             document.getElementById('greet-text').innerHTML = `Assalamualaikum, <span>${user.displayName.split(' ')[0]}</span>`;
             document.getElementById('user-name-full').innerText = user.displayName;
             document.getElementById('user-email').innerText = user.email;
-            document.getElementById('user-img').style.backgroundImage = `url('${user.photoURL}')`;
+            if(user.photoURL) document.getElementById('user-img').style.backgroundImage = `url('${user.photoURL}')`;
             loadSurahs();
-            initNamaz();
         } else {
             document.getElementById('auth-screen').style.display = 'flex';
         }
     });
 
+    // Navigation
     function navigate(id, el) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('p-'+id).classList.add('active');
@@ -259,52 +249,50 @@
         el.classList.add('active');
     }
 
-    // --- Quran API ---
+    // Quran Logic
     async function loadSurahs() {
-        const res = await fetch('https://api.alquran.cloud/v1/surah');
-        const data = await res.json();
-        document.getElementById('surah-list').innerHTML = data.data.map(s => `
-            <div class="glass-card" onclick="openSurah(${s.number}, '${s.name}')" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><b>${s.number}. ${s.englishName}</b><br><small>${s.numberOfAyahs} Ayahs</small></div>
-                <h3 style="font-family: 'Amiri'; color: var(--p-gold); margin:0;">${s.name}</h3>
-            </div>
-        `).join('');
+        try {
+            const res = await fetch('https://api.alquran.cloud/v1/surah');
+            const data = await res.json();
+            document.getElementById('surah-list').innerHTML = data.data.map(s => `
+                <div class="glass-card" onclick="openSurah(${s.number}, '${s.name}')" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div><b>${s.number}. ${s.englishName}</b><br><small>${s.numberOfAyahs} Ayahs</small></div>
+                    <h3 style="font-family: 'Amiri'; color: var(--p-gold); margin:0;">${s.name}</h3>
+                </div>
+            `).join('');
+        } catch(e) { console.log("Quran load error"); }
     }
 
     async function openSurah(id, name) {
         const reader = document.getElementById('quran-reader');
         document.getElementById('surah-title').innerText = name;
         reader.style.display = 'flex';
-        gsap.from(reader, { y: '100%', duration: 0.5 });
+        gsap.fromTo(reader, {y: '100%'}, {y: '0%', duration: 0.5});
         const res = await fetch(`https://api.alquran.cloud/v1/surah/${id}`);
         const data = await res.json();
         document.getElementById('reader-body').innerHTML = data.data.ayahs.map(a => `<p style="font-size:26px; line-height:2.2; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:15px;">${a.text} <span style="color:var(--p-gold); font-size:18px;">(${a.numberInSurah})</span></p>`).join('');
     }
     function closeQuran() { gsap.to("#quran-reader", { y: '100%', duration: 0.4, onComplete: () => document.getElementById('quran-reader').style.display='none' }); }
 
-    // --- AI Chat ---
+    // AI Chat Placeholder
     function askAI() {
         const inp = document.getElementById('ai-input');
         const box = document.getElementById('chat-box');
         if(!inp.value) return;
-        box.innerHTML += `<div style="align-self: flex-end; background: var(--p-gold); color: black; padding: 12px; border-radius: 15px 15px 0 15px; font-weight: 600;">${inp.value}</div>`;
+        box.innerHTML += `<div style="align-self: flex-end; background: var(--p-gold); color: black; padding: 12px; border-radius: 15px 15px 0 15px; font-weight: 600; margin-bottom:10px;">${inp.value}</div>`;
         setTimeout(() => {
-            box.innerHTML += `<div style="background: var(--p-glass); padding: 12px; border-radius: 15px 15px 15px 0;">This is Noor AI. I am currently indexing Quranic knowledge to better assist you.</div>`;
+            box.innerHTML += `<div style="background: var(--p-glass); padding: 12px; border-radius: 15px 15px 15px 0; margin-bottom:10px;">Noor AI is processing your request...</div>`;
             box.scrollTop = box.scrollHeight;
         }, 1000);
         inp.value = '';
     }
 
-    // --- Tools ---
+    // Tasbeeh Logic
     let tc = 0;
     function openTasbeeh() { document.getElementById('modal-tasbeeh').style.display='flex'; }
     function countUp() { tc++; document.getElementById('t-count').innerText = tc; if(navigator.vibrate) navigator.vibrate(50); }
     function resetTasbeeh() { tc=0; document.getElementById('t-count').innerText = 0; }
-
-    function initNamaz() {
-        const p = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
-        document.getElementById('namaz-tracker').innerHTML = p.map(n => `<div style="display:flex; justify-content:space-between; margin-bottom:15px;"><span>${n}</span><input type="checkbox" style="width:20px; height:20px; accent-color:var(--p-gold);"></div>`).join('');
-    }
 </script>
 </body>
 </html>
+
