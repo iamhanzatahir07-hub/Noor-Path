@@ -1,24 +1,4 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hello, World!</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-      <h1 class="title">Hello World!</h1>
-      <p id="currentTime"></p>
-      <script src="script.js"></script>
-  </body>
-</html>const firebaseConfig = {
-  apiKey: "AIzaSyCu7t0Dx0xiX-WIiTzm8IM-V8uD5C1_1_Y", // Yeh aapki sahi key hai
-  authDomain: "noor-path-226ce.firebaseapp.com",
-  projectId: "noor-path-226ce",
-  storageBucket: "noor-path-226ce.appspot.com",
-  messagingSenderId: "616816872871",
-  appId: "1:616816872871:web:12e3a6fae3c230e1203a82",
-  measurementId: "G-NYY9XZRRL5"
-};
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -61,11 +41,12 @@
             <i class="fa-solid fa-mosque" style="color: var(--gold); font-size: 24px;"></i>
             <i class="fa-solid fa-book-quran" style="color: rgba(255,255,255,0.5); font-size: 24px;"></i>
             <i class="fa-solid fa-compass" style="color: rgba(255,255,255,0.5); font-size: 24px;"></i>
-            <i class="fa-solid fa-circle-user" style="color: rgba(255,255,255,0.5); font-size: 24px;" onclick="auth.signOut().then(()=>location.reload())"></i>
+            <i class="fa-solid fa-circle-user" style="color: rgba(255,255,255,0.5); font-size: 24px;" onclick="logOut()"></i>
         </nav>
     </div>
 
 <script>
+    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCu7t0Dx0xiX-WIiTzm8IM-V8uD5C1_1_Y",
       authDomain: "noor-path-226ce.firebaseapp.com",
@@ -75,22 +56,36 @@
       appId: "1:616816872871:web:12e3a6fae3c230e1203a82"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
+    // Sign In Function
     function signIn() {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider).catch(e => alert("Error: " + e.message));
+        auth.signInWithPopup(provider).catch(e => {
+            console.error(e);
+            alert("Error: " + e.message);
+        });
     }
 
+    // Sign Out Function
+    function logOut() {
+        auth.signOut().then(() => {
+            location.reload();
+        });
+    }
+
+    // Auth State Observer
     auth.onAuthStateChanged(user => {
         if (user) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app').style.display = 'block';
-            document.getElementById('u-name').innerText = user.displayName.split(' ')[0];
+            document.getElementById('u-name').innerText = user.displayName ? user.displayName.split(' ')[0] : "User";
         }
     });
 
+    // Clock and Date Update
     setInterval(() => {
         const d = new Date();
         document.getElementById('clock').innerText = d.toLocaleTimeString();
@@ -99,3 +94,4 @@
 </script>
 </body>
 </html>
+
