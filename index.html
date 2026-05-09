@@ -352,8 +352,216 @@ function startLiveServices() {
     }, 1000);
     }
     
-    </script>
+    import 'package:flutter/material.dart';
+import 'package:adhan/adhan.dart'; // Prayer Times
+import 'package:geolocator/geolocator.dart'; // GPS
+import 'package:vibration/vibration.dart'; // Tasbeeh Feedback
+import 'package:google_nav_bar/google_nav_bar.dart'; // Modern UI
+
+void main() => runApp(IslamicProApp());
+
+class IslamicProApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      home: MainNavigation(),
+    );
+  }
+}
+
+// --- NAVIGATION CONTROLLER ---
+class MainNavigation extends StatefulWidget {
+  @override
+  _MainNavigationState createState() => _MainNavigationState();
+}
+
+class _MainNavigationState extends State<MainNavigation> {
+  int _selectedIndex = 0;
+  final List<Widget> _screens = [
+    HomeScreen(),
+    QuranScreen(),
+    TasbeehScreen(),
+    QiblaScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _screens[_selectedIndex],
+      bottomNavigationBar: GNav(
+        gap: 8,
+        activeColor: Colors.green,
+        iconSize: 24,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        duration: Duration(milliseconds: 400),
+        tabBackgroundColor: Colors.green.withOpacity(0.1),
+        color: Colors.grey,
+        tabs: [
+          GButton(icon: Icons.home, text: 'Home'),
+          GButton(icon: Icons.menu_book, text: 'Quran'),
+          GButton(icon: Icons.fingerprint, text: 'Tasbeeh'),
+          GButton(icon: Icons.explore, text: 'Qibla'),
+        ],
+        selectedIndex: _selectedIndex,
+        onTabChange: (index) => setState(() => _selectedIndex = index),
+      ),
+    );
+  }
+}
+
+// --- 1. HOME SCREEN (Prayer Times & Dashboard) ---
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Assalamualaikum, User")),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildPrayerCard(),
+            _buildFeatureGrid(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPrayerCard() {
+    return Container(
+      margin: EdgeInsets.all(15),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [Colors.green, Colors.teal]),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          Text("Next Prayer: Asr", style: TextStyle(color: Colors.white, fontSize: 20)),
+          Text("16:30 PM", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+          Divider(color: Colors.white54),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Fajr: 04:10", style: TextStyle(color: Colors.white)),
+              Text("Dhuhr: 12:20", style: TextStyle(color: Colors.white)),
+              Text("Maghrib: 18:50", style: TextStyle(color: Colors.white)),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeatureGrid(BuildContext context) {
+    List<Map<String, dynamic>> features = [
+      {'name': '99 Names', 'icon': Icons.stars},
+      {'name': 'Duas', 'icon': Icons.hands_clapping_rounded},
+      {'name': 'Hadith', 'icon': Icons.library_books},
+      {'name': 'Ramadan', 'icon': Icons.nights_stay},
+    ];
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.all(15),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
+      itemCount: features.length,
+      itemBuilder: (context, index) => Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(features[index]['icon'], size: 40, color: Colors.green),
+            SizedBox(height: 10),
+            Text(features[index]['name']),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// --- 2. QURAN SCREEN (List & Search) ---
+class QuranScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Holy Quran")),
+      body: ListView.separated(
+        itemCount: 114,
+        separatorBuilder: (c, i) => Divider(),
+        itemBuilder: (context, index) => ListTile(
+          leading: CircleAvatar(child: Text("${index + 1}")),
+          title: Text("Surah Al-Fatihah"),
+          subtitle: Text("The Opening"),
+          trailing: Text("الفاتحة", style: TextStyle(fontSize: 18)),
+          onTap: () {
+            // Navigate to Surah Detail
+          },
+        ),
+      ),
+    );
+  }
+}
+
+// --- 3. TASBEEH SCREEN (Counter Logic) ---
+class TasbeehScreen extends StatefulWidget {
+  @override
+  _TasbeehScreenState createState() => _TasbeehScreenState();
+}
+
+class _TasbeehScreenState extends State<TasbeehScreen> {
+  int _count = 0;
+
+  void _increment() {
+    setState(() => _count++);
+    Vibration.vibrate(duration: 50);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("SubhanAllah", style: TextStyle(fontSize: 24)),
+          SizedBox(height: 50),
+          GestureDetector(
+            onTap: _increment,
+            child: Container(
+              height: 200, width: 200,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.green),
+              child: Center(
+                child: Text("$_count", style: TextStyle(color: Colors.white, fontSize: 60)),
+              ),
+            ),
+          ),
+          IconButton(icon: Icon(Icons.refresh), onPressed: () => setState(() => _count = 0))
+        ],
+      ),
+    );
+  }
+}
+
+// --- 4. QIBLA SCREEN (Compass Sensor) ---
+class QiblaScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.explore, size: 250, color: Colors.green),
+            Text("Rotate your phone to find Kaaba", style: TextStyle(color: Colors.grey)),
+          ],
+        ),
+      ),
+    );
+  }
+ }
+ </script>
 </body>
 </html>
-
-
