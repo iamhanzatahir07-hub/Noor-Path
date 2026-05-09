@@ -2,220 +2,162 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noor Path | Supreme Admin HAMZA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Noor Path Ultimate | Supreme Admin</title>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #004d3d;
-            --secondary: #002e25;
-            --gold: #d4af37;
-            --light-gold: #f4dfa2;
-            --text-white: #ffffff;
-            --bg-dark: #050a0e;
-            --card-bg: #0a1612;
-            --transition: all 0.3s ease;
+            --primary: #004d3d; --accent: #d4af37; --bg: #010406;
+            --glass: rgba(255, 255, 255, 0.02); --gold-glow: rgba(212, 175, 55, 0.3);
         }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-white);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            padding-bottom: 90px;
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        body { background: var(--bg); color: white; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; }
+
+        /* --- Ultimate Background Animation --- */
+        .bg-animate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #002e25 0%, #010406 100%);
+            z-index: -1; overflow: hidden;
+        }
+        .bg-animate span {
+            position: absolute; display: block; width: 20px; height: 20px;
+            background: var(--accent); opacity: 0.1; border-radius: 50%;
+            animation: move 25s infinite linear;
         }
 
-        /* --- Login Screen --- */
+        @keyframes move {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.2; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+
+        /* --- Login Section (Big Level) --- */
         #login-screen {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            text-align: center;
-        }
-
-        .login-card {
-            background: rgba(0, 77, 61, 0.85);
+            position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9999;
             backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 30px;
-            border: 2px solid var(--gold);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            width: 80%;
-            max-width: 350px;
         }
-
-        .login-btn {
-            background: white;
-            color: #333;
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            margin-top: 20px;
-            transition: var(--transition);
+        .login-card {
+            background: rgba(0, 0, 0, 0.7); padding: 60px 40px; border-radius: 50px;
+            border: 1px solid var(--gold-glow); text-align: center; width: 90%; max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); animation: zoomIn 0.6s ease;
         }
-
-        /* --- Dashboard Header --- */
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 40px 25px;
-            border-bottom: 4px solid var(--gold);
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .kaaba-box {
+            width: 120px; height: 120px; background: var(--accent); border-radius: 35px;
+            margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 40px var(--gold-glow); animation: float 3s infinite ease-in-out;
         }
+        .kaaba-box i { font-size: 55px; color: black; }
 
-        .admin-badge {
-            background: var(--gold);
-            color: black;
-            font-size: 10px;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+        .google-btn {
+            background: #fff; color: #000; padding: 20px; border-radius: 25px;
+            border: none; font-weight: 800; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 15px; width: 100%;
+            margin-top: 40px; font-size: 17px; box-shadow: 0 10px 20px rgba(255,255,255,0.1);
         }
+        .google-btn:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(212,175,55,0.2); }
 
-        /* --- Content Sections --- */
-        .container { padding: 20px; max-width: 600px; margin: auto; }
-
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: var(--transition);
+        /* --- Main Dashboard UI --- */
+        .app-container { display: none; padding: 25px; animation: fadeIn 1s ease; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .user-pill {
+            background: var(--glass); border: 1px solid var(--gold-glow);
+            padding: 8px 20px; border-radius: 50px; display: flex; align-items: center; gap: 12px;
         }
+        .user-pill img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--accent); }
 
-        .feature-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-
-        /* --- Tasbeeh Design --- */
-        .tasbeeh-display {
-            font-size: 60px;
-            font-weight: 700;
-            color: var(--gold);
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            margin: 20px 0;
+        /* Tasbeeh Ultimate Wheel */
+        .tasbeeh-card {
+            background: var(--glass); border-radius: 45px; padding: 40px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.05); position: relative;
         }
-
-        .circle-btn {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 8px solid var(--gold);
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: active 0.1s;
-            box-shadow: 0 0 20px rgba(212,175,55,0.2);
+        .progress-ring {
+            width: 220px; height: 220px; margin: 0 auto; position: relative;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .circle-btn:active { transform: scale(0.95); background: rgba(212, 175, 55, 0.1); }
-
-        /* --- Navigation Bar --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(0, 46, 37, 0.95);
-            backdrop-filter: blur(15px);
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-            border-radius: 30px;
-            border: 2px solid var(--gold);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+        .progress-ring svg { position: absolute; transform: rotate(-90deg); }
+        .progress-ring circle {
+            fill: none; stroke-width: 8; stroke-linecap: round;
+            stroke: var(--accent); stroke-dasharray: 628; stroke-dashoffset: 628;
+            transition: stroke-dashoffset 0.3s;
         }
+        .count-val { font-size: 70px; font-weight: 800; color: #fff; text-shadow: 0 0 20px var(--gold-glow); }
 
-        .nav-item { color: rgba(255,255,255,0.5); font-size: 24px; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--gold); transform: translateY(-5px); }
+        /* Floating Nav */
+        .nav-dock {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 420px; height: 85px; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(25px); border-radius: 35px; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-around; align-items: center;
+        }
+        .nav-dock i { font-size: 26px; color: #555; cursor: pointer; }
+        .nav-dock i.active { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent)); }
 
-        /* --- Quran Quote --- */
-        .quran-box { font-family: 'Amiri', serif; font-size: 20px; color: var(--light-gold); line-height: 1.8; padding: 15px; }
+        /* Animations */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     </style>
 </head>
 <body>
 
+    <div class="bg-animate" id="bg-stars"></div>
+
     <div id="login-screen">
         <div class="login-card">
-            <i class="fa-solid fa-kaaba" style="font-size: 70px; color: var(--gold); margin-bottom: 15px;"></i>
-            <h1 style="margin: 0; letter-spacing: 2px;">NOOR PATH</h1>
-            <p style="color: var(--light-gold); font-size: 14px;">The Ultimate Islamic Portal</p>
-            <button class="login-btn" onclick="signIn()">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-                Login with Admin Account
+            <div class="kaaba-box"><i class="fa-solid fa-kaaba"></i></div>
+            <h1 style="margin:0; font-size: 38px; letter-spacing: 6px; font-weight: 800;">NOOR PATH</h1>
+            <p style="color: var(--accent); letter-spacing: 2px; font-size: 12px; margin-top: 10px;">SUPREME ISLAMIC PORTAL</p>
+            
+            <button class="google-btn" onclick="signIn()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="25">
+                Sign in with Google
             </button>
         </div>
     </div>
 
-    <div id="app" style="display:none;">
-        <header class="header">
-            <span class="admin-badge">SUPREME ADMIN ACCESS</span>
-            <h2 style="margin: 0;">Assalam-o-Alaikum, <br><span id="u-name" style="color:var(--gold)">Hamza Tahir</span></h2>
-        </header>
-
-        <div class="container">
-            <div class="feature-card" style="text-align: center;">
-                <h1 id="main-clock" style="font-size: 50px; margin: 0; color: var(--gold);">00:00:00</h1>
-                <p id="main-date" style="margin: 5px 0; font-weight: 600;"></p>
-                <div id="hijri-box" style="color: var(--light-gold); font-size: 14px;">Loading Hijri Date...</div>
+    <div class="app-container" id="app">
+        <div class="header">
+            <div>
+                <small style="color: var(--accent); font-weight: 800;">AL-SALAMU ALAYKUM</small>
+                <h2 style="margin: 5px 0 0;" id="user-name">Hamza Tahir</h2>
             </div>
-
-            <div class="feature-card" style="text-align: center;">
-                <h3 style="margin: 0;"><i class="fa-solid fa-dharmachakra"></i> Digital Tasbeeh</h3>
-                <div class="tasbeeh-display" id="t-count">0</div>
-                <div class="circle-btn" onclick="addTasbeeh()">
-                    <i class="fa-solid fa-fingerprint" style="font-size: 40px; color: var(--gold);"></i>
-                </div>
-                <button onclick="resetT()" style="background:none; border: 1px solid var(--gold); color: var(--gold); padding: 8px 20px; border-radius: 10px; margin-top: 20px; cursor: pointer;">Reset Counter</button>
-            </div>
-
-            <div class="feature-card" style="text-align: center;">
-                <i class="fa-solid fa-book-open" style="color: var(--gold);"></i>
-                <div class="quran-box">
-                    "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا" <br>
-                    <small style="font-family: 'Poppins'; font-size: 14px;">So verily, with every difficulty, there is ease. (94:5)</small>
-                </div>
+            <div class="user-pill">
+                <img id="user-img" src="" alt="">
+                <i class="fa-solid fa-crown" style="color: var(--accent); font-size: 14px;"></i>
             </div>
         </div>
 
-        <nav class="bottom-nav">
-            <i class="fa-solid fa-mosque nav-item active"></i>
-            <i class="fa-solid fa-book-quran nav-item"></i>
-            <i class="fa-solid fa-compass nav-item"></i>
-            <i class="fa-solid fa-gears nav-item"></i>
-            <i class="fa-solid fa-power-off nav-item" onclick="signOutHamza()" style="color: #ff4d4d;"></i>
-        </nav>
+        <div class="tasbeeh-card" onclick="doTasbeeh()">
+            <div class="progress-ring">
+                <svg width="220" height="220">
+                    <circle cx="110" cy="110" r="100" id="ring"></circle>
+                </svg>
+                <div class="count-val" id="counter">0</div>
+            </div>
+            <p id="zikr-text" style="color: var(--accent); margin-top: 20px; font-weight: 600; letter-spacing: 3px;">SUBHANALLAH</p>
+            <button onclick="event.stopPropagation(); resetC()" style="background:none; border:none; color:#444; font-size:12px; margin-top:10px;">TAP TO RESET</button>
+        </div>
+
+        <div style="margin-top: 30px; padding: 25px; background: var(--glass); border-radius: 35px; border-left: 5px solid var(--accent);">
+            <p style="font-family: 'Amiri', serif; font-size: 26px; color: var(--accent); line-height: 1.8; margin: 0;">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا</p>
+            <p style="font-size: 14px; opacity: 0.6; margin-top: 15px;">"For indeed, with hardship [will be] ease." (94:5)</p>
+        </div>
+
+        <div class="nav-dock">
+            <i class="fa-solid fa-house-chimney active"></i>
+            <i class="fa-solid fa-book-quran"></i>
+            <i class="fa-solid fa-compass"></i>
+            <i class="fa-solid fa-power-off" onclick="logout()" style="color: #ff4d4d;"></i>
+        </div>
     </div>
 
 <script>
-    // Firebase Config (Derived from your file)
     const firebaseConfig = {
       apiKey: "AIzaSyCu7t0Dx0xiX-WIiTzm8IM-V8uD5C1_1_Y",
       authDomain: "noor-path-226ce.firebaseapp.com",
@@ -228,47 +170,56 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Login System
-    function signIn() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider).catch(e => alert("Access Denied: " + e.message));
+    // Create Background Stars
+    const bg = document.getElementById('bg-stars');
+    for(let i=0; i<20; i++){
+        let span = document.createElement('span');
+        span.style.left = Math.random() * 100 + '%';
+        span.style.top = Math.random() * 100 + '%';
+        span.style.animationDelay = Math.random() * 20 + 's';
+        bg.appendChild(span);
     }
 
-    function signOutHamza() {
-        auth.signOut().then(() => location.reload());
+    function signIn() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider);
     }
+
+    function logout() { auth.signOut().then(() => location.reload()); }
 
     auth.onAuthStateChanged(user => {
         if (user) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app').style.display = 'block';
-            document.getElementById('u-name').innerText = user.displayName;
+            document.getElementById('user-name').innerText = user.displayName;
+            document.getElementById('user-img').src = user.photoURL;
         }
     });
 
-    // Real-time Systems
-    setInterval(() => {
-        const now = new Date();
-        document.getElementById('main-clock').innerText = now.toLocaleTimeString();
-        document.getElementById('main-date').innerText = now.toDateString();
-    }, 1000);
-
-    // Tasbeeh Logic
     let count = 0;
-    function addTasbeeh() {
+    const ring = document.getElementById('ring');
+    function doTasbeeh() {
         count++;
-        document.getElementById('t-count').innerText = count;
-        if(navigator.vibrate) navigator.vibrate(40);
-    }
-    function resetT() {
-        count = 0;
-        document.getElementById('t-count').innerText = 0;
+        document.getElementById('counter').innerText = count;
+        if(navigator.vibrate) navigator.vibrate(60);
+        
+        let offset = 628 - (count % 33) * (628 / 33);
+        ring.style.strokeDashoffset = offset;
+
+        if(count % 33 == 0) {
+            navigator.vibrate([100, 50, 100]);
+            changeZikr();
+        }
     }
 
-    // Hijri Date Mockup
-    const hijriMonths = ["Muharram", "Safar", "Rabi' al-awwal", "Rabi' ath-thani", "Jumada al-ula", "Jumada al-akhira", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"];
-    document.getElementById('hijri-box').innerText = "14 Zilhajj 1447 AH"; 
+    function resetC() { count = 0; document.getElementById('counter').innerText = 0; ring.style.strokeDashoffset = 628; }
 
+    const zikrs = ["SUBHANALLAH", "ALHAMDULILLAH", "ALLAHU AKBAR"];
+    let zIndex = 0;
+    function changeZikr() {
+        zIndex = (zIndex + 1) % zikrs.length;
+        document.getElementById('zikr-text').innerText = zikrs[zIndex];
+    }
 </script>
 </body>
 </html>
