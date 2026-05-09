@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Noor Path | Admin Hamza Tahir</title>
+    <title>Noor Path | Supreme Admin Hamza Tahir</title>
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -21,13 +21,12 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body, html { margin: 0; padding: 0; background: var(--p-dark); color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; height: 100%; }
 
-        /* Admin Header */
+        /* Premium UI Elements */
         .admin-header { padding: 50px 20px 15px; background: linear-gradient(180deg, rgba(0, 255, 136, 0.1), transparent); border-bottom: 1px solid var(--p-border); }
         .admin-badge { color: var(--p-gold); font-weight: 800; font-size: 11px; letter-spacing: 2px; }
         .welcome-msg { font-size: 24px; font-weight: 800; margin-top: 5px; }
         .welcome-msg span { color: var(--p-green); text-shadow: var(--neon); }
 
-        /* Pages */
         .page-container { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 110px; height: calc(100vh - 160px); }
         .page { display: none; animation: fadeInUp 0.4s ease-out forwards; }
         .page.active { display: block; }
@@ -35,26 +34,20 @@
 
         .glass-card { background: var(--p-glass); backdrop-filter: blur(25px); border: 1px solid var(--p-border); border-radius: 30px; padding: 20px; margin-bottom: 15px; }
 
-        /* AI Chat Box */
-        #chat-box { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; padding-right: 5px; }
-        .msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 85%; line-height: 1.4; }
-        .ai-msg { background: rgba(255,255,255,0.08); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--p-border); }
-        .user-msg { background: var(--p-green); color: black; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 700; }
+        /* AI & Navigation */
+        #chat-box { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+        .msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 85%; }
+        .ai-msg { background: rgba(255,255,255,0.08); align-self: flex-start; border: 1px solid var(--p-border); }
+        .user-msg { background: var(--p-green); color: black; align-self: flex-end; font-weight: 700; }
 
-        /* Quiz System UI */
-        .quiz-option { width: 100%; padding: 15px; background: var(--p-glass); border: 1px solid var(--p-border); border-radius: 18px; color: white; margin-bottom: 10px; text-align: left; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .quiz-option:active { background: var(--p-green); color: black; transform: scale(0.98); }
-
-        /* Nav Bar */
         .bottom-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; height: 80px; background: rgba(1, 8, 11, 0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid var(--p-border); display: flex; justify-content: space-around; align-items: center; z-index: 5000; }
         .nav-item { color: #444; display: flex; flex-direction: column; align-items: center; transition: 0.3s; cursor: pointer; }
         .nav-item.active { color: var(--p-green); transform: translateY(-5px); text-shadow: var(--neon); }
         .nav-item i { font-size: 22px; }
         .nav-item span { font-size: 9px; font-weight: 800; margin-top: 5px; }
 
-        /* Auth Screen */
         #auth-overlay { position: fixed; inset: 0; background: var(--p-dark); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .google-btn { width: 100%; background: white; color: black; padding: 15px; border-radius: 15px; font-weight: 800; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .google-btn { width: 100%; background: white; color: black; padding: 15px; border-radius: 15px; font-weight: 800; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -63,7 +56,7 @@
         <div class="glass-card" style="text-align: center; width: 85%;">
             <i class="fa-solid fa-kaaba" style="font-size: 50px; color: var(--p-gold);"></i>
             <h1 style="margin: 15px 0 5px;">Noor Path</h1>
-            <p style="opacity: 0.6; margin-bottom: 30px;">Your Journey to Deen</p>
+            <p style="opacity: 0.6; margin-bottom: 30px;">Journey by Admin Hamza</p>
             <button class="google-btn" onclick="login()">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20"> Continue with Google
             </button>
@@ -73,10 +66,10 @@
     <main id="main-app" style="display:none; flex-direction: column; height: 100vh;">
         <header class="admin-header">
             <div class="admin-badge"><i class="fa-solid fa-shield-halved"></i> Supreme Admin: Hamza Tahir</div>
-            <div class="welcome-msg">Assalamualaikum, <span id="user-display">Akhi</span></div>
-            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; opacity: 0.7; font-weight: 700;">
+            <div class="welcome-msg">Assalamualaikum, <span id="user-display">User</span></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; opacity: 0.7;">
                 <span id="live-time">00:00:00</span>
-                <span id="hijri-txt">Calculating Hijri...</span>
+                <span id="hijri-txt">Loading...</span>
             </div>
         </header>
 
@@ -87,23 +80,22 @@
                         <span style="font-size: 11px; font-weight: 800; opacity: 0.8;">NEXT PRAYER</span>
                         <div id="timer-box" style="background: var(--p-green); color: black; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: 800;">AUTO</div>
                     </div>
-                    <h1 id="next-prayer-name" style="font-family: 'Amiri'; color: var(--p-gold); font-size: 45px; margin: 10px 0;">Maghrib</h1>
-                    <p style="font-size: 12px; margin:0;"><i class="fa-solid fa-location-dot"></i> Lahore, Pakistan | Jamat: <span id="j-time">1:30 PM</span></p>
+                    <h1 style="font-family: 'Amiri'; color: var(--p-gold); font-size: 45px; margin: 10px 0;">Maghrib</h1>
+                    <p style="font-size: 12px; margin:0;"><i class="fa-solid fa-location-dot"></i> Lahore, Pakistan</p>
                 </div>
-                
                 <div class="glass-card">
-                    <h4 style="margin:0 0 10px 0; color: var(--p-green);"><i class="fa-solid fa-star"></i> Daily Sunnah</h4>
-                    <p style="font-size: 13px; opacity: 0.8; line-height: 1.5;">Reciting 'SubhanAllah' 33 times after every Salah erases sins even if they are as much as the foam of the sea.</p>
+                    <h4 style="margin:0; color: var(--p-green);">Daily Hadith</h4>
+                    <p style="font-size: 13px; opacity: 0.8; margin-top: 10px;">"The best among you are those who learn the Quran and teach it." (Bukhari)</p>
                 </div>
             </div>
 
             <div id="p-ai" class="page">
-                <div class="glass-card" style="height: 100%;">
+                <div class="glass-card">
                     <div id="chat-box">
-                        <div class="msg ai-msg">Assalamualaikum! Main Noor Path AI hoon. Main aapka Islamic sawaloon ka jawab de sakta hoon.</div>
+                        <div class="msg ai-msg">Assalamualaikum! Noor Path AI hazir hai. Sawal poochein.</div>
                     </div>
                     <div style="display: flex; gap: 10px;">
-                        <input type="text" id="ai-input" placeholder="Namaz ka tariqa? Dua?" style="flex:1; background: var(--p-glass); border: 1px solid var(--p-border); padding: 15px; border-radius: 15px; color: white;">
+                        <input type="text" id="ai-input" placeholder="Type message..." style="flex:1; background: var(--p-glass); border: 1px solid var(--p-border); padding: 15px; border-radius: 15px; color: white;">
                         <button onclick="askAI()" style="background: var(--p-green); border: none; width: 55px; border-radius: 15px; color: black;"><i class="fa-solid fa-paper-plane"></i></button>
                     </div>
                 </div>
@@ -111,40 +103,18 @@
 
             <div id="p-tools" class="page">
                 <div class="glass-card" style="text-align: center;">
-                    <span style="font-size: 12px; opacity: 0.6; font-weight: 800;">DIGITAL TASBEEH</span>
+                    <h3>Tasbeeh Counter</h3>
                     <h1 id="t-val" style="font-size: 70px; color: var(--p-green); margin: 10px 0;">0</h1>
-                    <button onclick="countUp()" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--p-gold); background: transparent; color: white; font-size: 25px; transition: 0.1s;"><i class="fa-solid fa-hand-pointer"></i></button>
-                    <div style="margin-top: 15px;"><button onclick="resetT()" style="color: #ff4d4d; background:none; border:none; font-weight:800;">RESET</button></div>
-                </div>
-                <div class="glass-card">
-                    <h4>Zakat Calculator (2.5%)</h4>
-                    <input type="number" id="z-input" placeholder="Enter Total Savings" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--p-border); background:none; color:white;">
-                    <button onclick="calcZ()" style="width:100%; padding:12px; background: var(--p-gold); border:none; border-radius:12px; font-weight:800; margin-top:10px;">Calculate Zakat</button>
-                    <p id="z-result" style="text-align:center; margin-top:10px; color: var(--p-green); font-weight: 800;"></p>
+                    <button onclick="countUp()" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--p-gold); background: transparent; color: white; font-size: 25px;"><i class="fa-solid fa-fingerprint"></i></button>
+                    <div style="margin-top: 15px;"><button onclick="resetT()" style="color: #ff4d4d; background:none; border:none;">RESET</button></div>
                 </div>
             </div>
 
             <div id="p-profile" class="page">
                 <div class="glass-card" style="text-align: center;">
                     <img id="u-photo" src="" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--p-green); margin-bottom: 10px;">
-                    <h3 id="u-full-name" style="margin:0;">User</h3>
-                    <p id="u-email" style="font-size: 11px; opacity: 0.5; margin-bottom: 15px;"></p>
-                    <button onclick="logout()" style="color: #ff4d4d; background:none; border: 1px solid #ff4d4d; padding: 8px 20px; border-radius: 10px; font-size: 12px;">Sign Out</button>
-                </div>
-
-                <div class="glass-card">
-                    <h3 style="color: var(--p-gold);"><i class="fa-solid fa-clock-rotate-left"></i> Islamic Attendance</h3>
-                    <div id="quiz-box">
-                        <div id="quiz-lock" style="text-align: center; padding: 20px;">
-                            <i class="fa-solid fa-lock" style="font-size: 30px; margin-bottom: 10px;"></i>
-                            <p id="lock-timer">Opens between 9:00 PM - 12:00 AM</p>
-                        </div>
-                        <div id="quiz-main" style="display: none;">
-                            <p id="q-text" style="font-weight: 800; margin-bottom: 20px;">Did you pray Fajr today?</p>
-                            <button class="quiz-option" onclick="nextQ()">Yes, Alhamdulillah</button>
-                            <button class="quiz-option" onclick="nextQ()">No, I'll try tomorrow</button>
-                        </div>
-                    </div>
+                    <h3 id="u-full-name">Username</h3>
+                    <button onclick="logout()" style="color: #ff4d4d; background:none; border: 1px solid #ff4d4d; padding: 8px 20px; border-radius: 10px;">Sign Out</button>
                 </div>
             </div>
         </div>
@@ -158,7 +128,6 @@
     </main>
 
 <script>
-    // --- 1. FIREBASE CONFIG ---
     const firebaseConfig = {
         apiKey: "AIzaSyCu7t0Dx0xiX-WiITzmsIM-TlKXC32X8BQ",
         authDomain: "noor-path-226ce.firebaseapp.com",
@@ -170,8 +139,15 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // --- 2. AUTH LOGIC ---
-    function login() { auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+    // --- FIXED GOOGLE SIGN IN ---
+    function login() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        // Force account selection list
+        provider.setCustomParameters({ prompt: 'select_account' });
+        
+        auth.signInWithPopup(provider).catch(e => alert(e.message));
+    }
+
     function logout() { auth.signOut().then(() => location.reload()); }
 
     auth.onAuthStateChanged(user => {
@@ -181,87 +157,38 @@
             document.getElementById('user-display').innerText = user.displayName.split(' ')[0];
             document.getElementById('u-full-name').innerText = user.displayName;
             document.getElementById('u-photo').src = user.photoURL;
-            document.getElementById('u-email').innerText = user.email;
-            initEngine();
+            init();
         }
     });
 
-    // --- 3. APP ENGINE ---
-    function initEngine() {
-        updateTime();
-        setInterval(updateTime, 1000);
-        checkQuizStatus();
-        fetchPrayers();
+    function init() {
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('live-time').innerText = now.toLocaleTimeString();
+            const options = { calendar: 'islamic-uma', day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('hijri-txt').innerText = new Intl.DateTimeFormat('en-u-ca-islamic-uma', options).format(now);
+        }, 1000);
     }
 
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('live-time').innerText = now.toLocaleTimeString();
-        const options = { calendar: 'islamic-uma', day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('hijri-txt').innerText = new Intl.DateTimeFormat('en-u-ca-islamic-uma', options).format(now);
-    }
+    let tc = 0;
+    function countUp() { tc++; document.getElementById('t-val').innerText = tc; if(navigator.vibrate) navigator.vibrate(60); }
+    function resetT() { tc = 0; document.getElementById('t-val').innerText = 0; }
 
-    // --- 4. NOOR AI CHATBOT (Connected) ---
     function askAI() {
         const inp = document.getElementById('ai-input');
         const box = document.getElementById('chat-box');
         if(!inp.value.trim()) return;
-
         box.innerHTML += `<div class="msg user-msg">${inp.value}</div>`;
-        const query = inp.value.toLowerCase();
+        const q = inp.value.toLowerCase();
         inp.value = '';
-        box.scrollTop = box.scrollHeight;
-
         setTimeout(() => {
-            let reply = "MashaAllah, buhat umda sawal hai. Allah humein deen ki mazeed samajh ata farmaye.";
-            if(query.includes("salam")) reply = "Walaikum Assalam! Main Noor Path AI hoon. Main aapki kya madad kar sakta hoon?";
-            if(query.includes("namaz") || query.includes("salah")) reply = "Namaz jannat ki kunji hai. Aaj ki panch namazain zaroor parhiye ga.";
-            if(query.includes("hamza")) reply = "Admin Hamza Tahir ne mujhe design kiya hai taake main aapki rahnumai kar sakoon.";
-            
-            box.innerHTML += `<div class="msg ai-msg">${reply}</div>`;
+            let r = "MashaAllah! Noor Path AI is here to help.";
+            if(q.includes("salam")) r = "Walaikum Assalam! How can I guide you today?";
+            box.innerHTML += `<div class="msg ai-msg">${r}</div>`;
             box.scrollTop = box.scrollHeight;
-        }, 800);
+        }, 600);
     }
 
-    // --- 5. TOOLS ENGINE ---
-    let tc = 0;
-    function countUp() { tc++; document.getElementById('t-val').innerText = tc; if(navigator.vibrate) navigator.vibrate(60); }
-    function resetT() { tc = 0; document.getElementById('t-val').innerText = 0; }
-    function calcZ() { 
-        const val = document.getElementById('z-input').value;
-        document.getElementById('z-result').innerText = "Total Zakat: PKR " + (val * 0.025).toFixed(2);
-    }
-
-    // --- 6. 9PM QUIZ SYSTEM ---
-    function checkQuizStatus() {
-        const hour = new Date().getHours();
-        if(hour >= 21 || hour < 0) { // Raat 9 bjay se 12 tak
-            document.getElementById('quiz-lock').style.display = 'none';
-            document.getElementById('quiz-main').style.display = 'block';
-        }
-    }
-
-    let qCount = 0;
-    const qs = ["Did you recite Darood today?", "Did you pray all 5 times?", "Did you read Quran?", "Did you avoid lying today?"];
-    function nextQ() {
-        qCount++;
-        if(qCount < qs.length) {
-            document.getElementById('q-text').innerText = qs[qCount];
-        } else {
-            document.getElementById('quiz-main').innerHTML = "<h2 style='color:var(--p-green)'>BarakAllah!</h2><p>Attendance Saved. +50 XP gained!</p>";
-        }
-    }
-
-    // --- 7. PRAYER API ---
-    async function fetchPrayers() {
-        try {
-            const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1');
-            const data = await res.json();
-            document.getElementById('j-time').innerText = "1:30 PM"; // Static as per request
-        } catch(e) { console.log("Prayer API Down"); }
-    }
-
-    // Navigation
     function navigate(id, el) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('p-'+id).classList.add('active');
